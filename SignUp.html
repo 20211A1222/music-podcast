@@ -1,0 +1,64 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login Page</title>
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body class="container">
+    <div class="popup">
+        <label for="email">Email</label>
+        <input type="text" id="email" placeholder="Enter your email">
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Enter your password">
+        <button id="SignUp">SignUp</button>
+    </div>
+    <script type="module">
+        // Import the functions you need from the SDKs you need
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-app.js";
+        import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-analytics.js";
+        import { getAuth, createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-auth.js";
+        import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/9.19.1/firebase-database.js";
+        import { getFirestore, doc, getDoc, setDoc, collection, addDoc, updateDoc, deleteDoc, deleteField} from "https://www.gstatic.com/firebasejs/9.19.1/firebase-firestore.js";
+        // TODO: Add SDKs for Firebase products that you want to use
+        // https://firebase.google.com/docs/web/setup#available-libraries
+      
+        // Your web app's Firebase configuration
+        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+        const firebaseConfig = { 
+  apiKey : "AIzaSyB4z1tvJOE5mxSGK8m8eCtAVnGiaE3exx4" , 
+  authDomain : "musicweb-c14c2.firebaseapp.com" , 
+  projectId : "musicweb-c14c2" , 
+  storageBucket : "musicweb-c14c2.appspot.com" , 
+  messagingSenderId : "930141818019" , 
+  appId : "1:930141818019:web:d19192cdbfa57bc9124316" , 
+  measurementId : "G-XQMK1WWPPW" 
+};
+        const app = initializeApp(firebaseConfig);
+        const analytics = getAnalytics(app);
+        const auth = getAuth(app);
+
+        document.querySelector('#SignUp').addEventListener('click', function(){
+            const email = document.getElementById('email').value;
+            const password = document.getElementById('password').value;
+            createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed in 
+                const user = userCredential.user;
+                // ...
+                window.location.assign("login.html");
+                alert("User Created");
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                // ..
+                alert(errorMessage+" "+errorCode);
+            });
+
+        })
+
+      </script>
+</body>
+</html>
